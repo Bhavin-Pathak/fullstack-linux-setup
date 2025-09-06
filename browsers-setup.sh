@@ -3,7 +3,6 @@
 # Colors
 BLUE='\033[1;34m'
 GREEN='\033[1;32m'
-RED='\033[1;31m'
 NC='\033[0m'
 
 echo -e "${BLUE}🔹feat: installing Brave-Browser...${NC}"
