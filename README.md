@@ -1,4 +1,4 @@
-# 🚀 Linux Development Environment Setup
+# 🚀 Development Environment Setup
 
 This repository provides **ready-to-use installation scripts** for quickly setting up a complete development environment on **Ubuntu/Debian-based Linux systems**.  
 It includes programming languages, frameworks, runtimes, databases, container tools, IDEs, and browsers.
@@ -12,15 +12,16 @@ Before running the scripts, ensure:
 - 🐧 **OS:** Ubuntu 22.04 LTS (or compatible Debian-based system)
 - 🔑 **Privileges:** `sudo` access is required
 - 🌐 **Internet:** Stable connection to fetch packages and snaps
+- 📦 **Snap:** Make sure snapd is installed on your system. if not then run `sudo apt install snapd -y`
 
 ---
-
-## 📦 What Gets Installed?
 
 ### 🖥️ Development Tools
 
 - Android Studio
 - Visual Studio Code
+- Sublime Text
+- Notepad++
 - Postman
 - Beekeeper Studio
 
@@ -35,7 +36,7 @@ Before running the scripts, ensure:
 
 ### 🗄️ Databases
 
-- MongoDB 8.0 (auto-start enabled)
+- MongoDB (auto-start enabled)
 - PostgreSQL (via official PGDG repo)
 
 ### 🐳 Containers
@@ -47,23 +48,10 @@ Before running the scripts, ensure:
 
 ### 🌍 Browsers
 
-- Brave Browser
-- Opera Browser
-
----
-
-## 📂 Scripts Overview
-
-| Category          | Script File                        | Description                                                              |
-| ----------------- | ---------------------------------- | ------------------------------------------------------------------------ |
-| Development Tools | `development-tools-setup-linux.sh` | Installs Android Studio, VS Code, Postman, Beekeeper Studio              |
-| Flutter & Dart    | `flutter-dart-setup-linux.sh`      | Installs Flutter SDK & Dart, and also updates in system environment PATH |
-| Browsers          | `browsers-setup-linux.sh`          | Installs Brave & Opera                                                   |
-| MongoDB           | `mongodb-setup-linux.sh`           | Installs MongoDB, starts service, enables on boot                        |
-| PostgreSQL        | `postgresql-setup-linux.sh`        | Installs PostgreSQL from PGDG repository                                 |
-| Node.js & Tools   | `node-tools-setup-linux.sh`        | Installs Node.js (NVM), Yarn, pnpm, Bun, Nodemon                         |
-| Java              | `java17-setup-linux.sh`            | Installs OpenJDK 17 and sets JAVA_HOME in system environment             |
-| Docker            | `docker-setup-linux.sh`            | Installs Docker Engine, CLI, Compose plugin                              |
+- Brave
+- Opera
+- Chromium
+- Firefox
 
 ---
 
@@ -80,29 +68,45 @@ Before running the scripts, ensure:
 2. **Run a script (example: Development Tools)**
 
    ```bash
-   ./development-tools-setup-linux.sh
+   ./dev-tools.sh
    ```
 
 3. **Run other scripts as needed**
    ```bash
-   ./flutter-dart-setup-linux.sh
-   ./browsers-setup-linux.sh
-   ./node-tools-setup-linux.sh
-   ./mongodb-setup-linux.sh
-   ./postgresql-setup-linux.sh
-   ./java17-setup-linux.sh
-   ./docker-setup-linux.sh
+   ./flutter-dart-setup.sh
+   ./browsers-setup.sh
+   ./node-tools-setup.sh
+   ./mongoDB-setup.sh
+   ./postgresql-setup.sh
+   ./java17-setup.sh
+   ./docker-setup.sh
    ```
+
+---
+
+## ⚠️ Important Notes
+
+- After installing **Flutter/Dart** or **Node.js**, restart your terminal or run:
+  ```bash
+  source ~/.bashrc
+  ```
+- To check services:
+  ```bash
+  sudo systemctl status mongod
+  sudo systemctl status postgresql
+  ```
+- MongoDB and PostgreSQL are **enabled on system boot**.
 
 ---
 
 ## 🔍 Verification
 
-Run the following commands to verify installation:
+Close Existing Terminal And Open New Terminal And Run Following Commands
 
 ```bash
 # Node & Package Managers
 node -v
+nvm -v
 npm -v
 yarn -v
 pnpm -v
@@ -126,17 +130,10 @@ docker compose version
 
 ---
 
-## ⚠️ Important Notes
+## 🚫 Contribution Policy
 
-- After installing **Flutter/Dart** or **Node.js**, restart your terminal or run:
-  ```bash
-  source ~/.bashrc
-  ```
-- To check services:
-  ```bash
-  sudo systemctl status mongod
-  sudo systemctl status postgresql
-  ```
-- MongoDB and PostgreSQL are **enabled on boot**.
-- Docker Desktop `.deb` package must be downloaded manually:  
-  👉 [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/linux/ubuntu/)
+- This repository does not accept contributions.
+
+- Pull requests will not be merged issues and feature requests are not tracked.
+
+- You are free to clone this repository and modify the scripts locally as per your requirements.
