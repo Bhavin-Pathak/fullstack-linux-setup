@@ -28,6 +28,7 @@ Before running the scripts, ensure:
 ### 💻 Programming & Runtimes
 
 - Node.js (via NVM)
+- Python3 & Pip
 - npm, Yarn, pnpm (via Corepack)
 - Bun runtime
 - Nodemon
@@ -80,6 +81,7 @@ Before running the scripts, ensure:
    ./postgresql-setup.sh
    ./java17-setup.sh
    ./docker-setup.sh
+   ./python-pip-setup.sh
    ```
 
 ---
@@ -126,6 +128,10 @@ mongod --version
 # Docker
 docker --version
 docker compose version
+
+# Python & Pip
+python --version
+pip --version
 ```
 
 ---
