@@ -38,5 +38,8 @@ echo -e "${BLUE}🔹Installing DBeaver-ce For Database Viewer...${NC}"
 sudo snap install dbeaver-ce
 echo -e "${GREEN}DBeaver-ce installation completed ${NC}"
 
+echo -e "${BLUE}🔹Versions of all the installed packages are listed below...${NC}"
+snap list
+
 echo -e "${GREEN}Development tools and Database viewer installed successfully! ${NC}"
 
