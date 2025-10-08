@@ -24,7 +24,7 @@ echo -e "${BLUE}🔹Reloading bashrc to apply changes...${NC}"
 source ~/.bashrc
 echo -e "${GREEN}Reloading bashrc completed ${NC}"
 
-echo -e "${BLUE}🔹Verifying installation of JAVA-17...${NC}"
+echo -e "${BLUE}🔹Verifying Version of Java...${NC}"
 java --version
 
 echo -e "${RED}if JAVA_HOME is not updated in current session, try running 'source ~/.bashrc' manually.${NC}"
