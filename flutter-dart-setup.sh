@@ -27,5 +27,9 @@ echo -e "${BLUE}🔹Reloading bashrc to apply changes...${NC}"
 source ~/.bashrc
 echo -e "${GREEN}Reloading bashrc completed ${NC}"
 
-echo -e "${GREEN}Flutter and Dart setup completed successfully! ${NC}"
+echo -e "${BLUE}🔹Verifying Flutter and Dart installation...${NC}"
+flutter --version
+dart --version
+
+echo -e "${GREEN}Flutter and Dart installed successfully! ${NC}"
 
