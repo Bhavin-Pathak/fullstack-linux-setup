@@ -21,8 +21,11 @@ export PATH="$PATH:/snap/flutter/common/flutter/bin/cache/dart-sdk/bin"
 
 echo 'export PATH=$PATH:/snap/bin:/snap/flutter/common/flutter/bin' >> ~/.bashrc
 echo 'export PATH=$PATH:/snap/flutter/common/flutter/bin/cache/dart-sdk/bin' >> ~/.bashrc
-echo -e "${GREEN}Adding flutter and dart to PATH Success ${NC}"
+echo -e "${GREEN}Adding flutter and Dart to PATH Success ${NC}"
 
-echo -e "${GREEN}Flutter and dart setup completed successfully! ${NC}"
-echo -e "${RED}Please restart your terminal or run 'source ~/.bashrc' to apply PATH changes.${NC}"
+echo -e "${BLUE}🔹Reloading bashrc to apply changes...${NC}"
+source ~/.bashrc
+echo -e "${GREEN}Reloading bashrc completed ${NC}"
+
+echo -e "${GREEN}Flutter and Dart setup completed successfully! ${NC}"
 
