@@ -32,6 +32,13 @@ echo -e "${GREEN}Docker-engine and related Tools are successfully installed ${NC
 
 echo -e "${BLUE}Docker installation complete!${NC}"
 
+# Version Verifications
+echo -e "${BLUE}🔹Verifying Docker and its components version...${NC}"
+docker --version
+docker compose version
+docker buildx version
+containerd --version
+
 # Final Note
 echo -e "${RED}Docker-Desktop is not installed by this script.${NC}"
 echo -e "${RED}Please download it manually from: https://docs.docker.com/desktop/setup/install/linux/ubuntu/${NC}"
