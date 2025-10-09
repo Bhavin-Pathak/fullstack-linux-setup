@@ -25,7 +25,8 @@ source ~/.bashrc
 echo -e "${GREEN}Reloading bashrc completed ${NC}"
 
 echo -e "${BLUE}🔹Verifying Version of Java...${NC}"
-java --version
+echo -e "Java Version is : $(java -version 2>&1 | head -n 1)"
+echo -e "JAVA_HOME is set to : $JAVA_HOME"
 
 echo -e "${RED}if JAVA_HOME is not updated in current session, try running 'source ~/.bashrc' manually.${NC}"
 
