@@ -34,10 +34,10 @@ echo -e "${BLUE}Docker installation complete!${NC}"
 
 # Version Verifications
 echo -e "${BLUE}🔹Verifying Docker and its components version...${NC}"
-docker --version
-docker compose version
-docker buildx version
-containerd --version
+echo -e "Docker Version is : $(docker --version)"
+echo -e "Compose Version is : $(docker compose version)"
+echo -e "BuildX Version is : $(docker buildx version)"
+echo -e "Containerd Version is : $(containerd --version)"
 
 # Final Note
 echo -e "${RED}Docker-Desktop is not installed by this script.${NC}"

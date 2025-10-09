@@ -28,8 +28,8 @@ source ~/.bashrc
 echo -e "${GREEN}Reloading bashrc completed ${NC}"
 
 echo -e "${BLUE}🔹Verifying Flutter and Dart installation...${NC}"
-flutter --version
-dart --version
+echo -e "Flutter Version is : $(flutter --version)"
+echo -e "Dart Version is : $(dart --version)"
 
 echo -e "${GREEN}Flutter and Dart installed successfully! ${NC}"
 
