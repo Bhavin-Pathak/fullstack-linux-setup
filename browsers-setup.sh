@@ -12,22 +12,22 @@ echo -e "${GREEN}Snap is Installed successfully ${NC}"
 
 echo -e "${BLUE}🔹Installing Brave-Browser...${NC}"
 sudo snap install brave
-brave --version
+echo -e "Brave Version is : $(brave --version)"
 echo -e "${GREEN}Brave-browser installation completed ${NC}"
 
 echo -e "${BLUE}🔹Installing Opera-Browser...${NC}"
 sudo snap install opera
-opera --version
+echo -e "Opera Version is : $(opera --version)"
 echo -e "${GREEN}Opera-browser installation completed ${NC}"
 
 echo -e "${BLUE}🔹Installing Chromium-Browser...${NC}"
 sudo snap install chromium
-chromium --version
+echo -e "Chromium Version is : $(chromium --version)"
 echo -e "${GREEN}Chromium installation completed ${NC}"
 
 echo -e "${BLUE}🔹Installing Firefox-Browser...${NC}"
 sudo snap install firefox
-firefox --version
+echo -e "Firefox Version is : $(firefox --version)"
 echo -e "${GREEN}Firefox installation completed ${NC}"
 
 echo -e "${GREEN}All Browsers installed successfully! ${NC}"
