@@ -24,6 +24,8 @@ Before running the scripts, ensure:
 - Notepad++
 - Postman
 - Beekeeper Studio
+- DBeaver Community Edition
+- Windsurf-ai-IDE
 
 ### 💻 Programming & Runtimes
 
@@ -39,6 +41,7 @@ Before running the scripts, ensure:
 
 - MongoDB (auto-start enabled)
 - PostgreSQL (via official PGDG repo)
+- MilvusDB
 
 ### 🐳 Containers
 
@@ -82,6 +85,8 @@ Before running the scripts, ensure:
    ./java17-setup.sh
    ./docker-setup.sh
    ./python-pip-setup.sh
+   ./milvus-setup.sh
+   ./windsurf-ide-setup.sh
    ```
 
 ---
@@ -103,7 +108,7 @@ Before running the scripts, ensure:
 
 ## 🔍 Verification
 
-Close Existing Terminal And Open New Terminal And Run Following Commands
+Close Existing Terminal And Open New Terminal And Run Following Commands If Running Scripts Doesn't Shows Versions
 
 ```bash
 # Node & Package Managers
