@@ -88,6 +88,56 @@ rm -rf ~/.cache/bun
 
 echo -e "${GREEN}✔ Node / Yarn / pnpm / Bun caches cleaned${NC}"
 
+# Docker Cleanup Preparation
+echo -e "${BLUE}🔹 Checking Docker environment...${NC}"
+DOCKER_READY=false
+# Docker Desktop
+if command -v docker-desktop &> /dev/null || [ -d "$HOME/.docker/desktop" ]; then
+  echo -e "${YELLOW}🖥️ Docker Desktop detected${NC}"
+  if systemctl --user is-active --quiet docker-desktop; then
+    echo -e "${GREEN}✔ Docker Desktop already running${NC}"
+    DOCKER_READY=true
+  else
+    echo -e "${BLUE}🔹 Starting Docker Desktop...${NC}"
+    systemctl --user start docker-desktop || true
+    sleep 12
+    docker info &> /dev/null && DOCKER_READY=true
+  fi
+# Docker Engine
+elif systemctl list-unit-files | grep -q docker.service; then
+  echo -e "${YELLOW}🐳 Docker Engine detected${NC}"
+  if systemctl is-active --quiet docker; then
+    echo -e "${GREEN}✔ Docker Engine already running${NC}"
+    DOCKER_READY=true
+  else
+    echo -e "${BLUE}🔹 Starting Docker Engine...${NC}"
+    sudo systemctl start docker
+    sleep 5
+    docker info &> /dev/null && DOCKER_READY=true
+  fi
+# Docker not installed
+else
+  echo -e "${YELLOW}⚠️ Docker not installed. Skipping Docker cleanup.${NC}"
+fi
+# SAFE CLEANUP if Docker is ready
+if [ "$DOCKER_READY" = true ]; then
+  echo -e "${BLUE}🔹 Docker SAFE cleanup started...${NC}"
+  echo -e "${YELLOW}✔ Running containers SAFE${NC}"
+  echo -e "${YELLOW}✔ Volumes & DB data SAFE${NC}"
+  echo ""
+  docker system df
+  echo -e "${BLUE}🔹 Removing stopped containers...${NC}"
+  docker container prune -f
+  echo -e "${BLUE}🔹 Removing UNUSED Docker images...${NC}"
+  docker image prune -af
+  echo -e "${BLUE}🔹 Removing Docker build cache...${NC}"
+  docker builder prune -af
+  docker system df
+  echo -e "${GREEN}✔ Docker cleanup completed${NC}"
+else
+  echo -e "${YELLOW}⚠️ Docker not ready. Cleanup skipped safely.${NC}"
+fi
+
 # Docker Cleanup
 if command -v docker &> /dev/null; then
   echo -e "${BLUE}🔹 Docker SAFE cleanup started...${NC}"
