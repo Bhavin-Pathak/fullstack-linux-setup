@@ -87,11 +87,70 @@ Before running the scripts, ensure:
    ./python-pip-setup.sh
    ./milvus-setup.sh
    ./windsurf-ide-setup.sh
+   ./cleaner-safe.sh
    ```
 
 ---
 
-## ⚠️ Important Notes
+## 🧹 System Cleanup (cleaner-safe.sh)
+
+The `cleaner-safe.sh` script performs a safe cleanup of your system by removing unused caches, updating packages, and cleaning temporary files. It preserves important data like projects, OS files, SDKs, Docker volumes, and databases.
+
+### Manual Execution
+
+Run the script interactively:
+
+```bash
+./cleaner-safe.sh
+```
+
+It will prompt for confirmation before proceeding.
+
+### Automated Execution on System Start/Restart
+
+To run the cleanup automatically on system boot or restart using GNOME autostart (note: the script will prompt for confirmation each time):
+
+1. **Create the autostart directory if it doesn't exist**:
+
+   ```bash
+   mkdir -p ~/.config/autostart
+   ```
+
+2. **Create the .desktop file**:
+
+   ```bash
+   nano ~/.config/autostart/sys-script.desktop
+   ```
+
+   Add the following content:
+
+   ```
+   [Desktop Entry]
+   Type=Application
+   Name=System Startup Script
+   Comment=Open terminal and run sys-script.sh on startup
+   Exec=gnome-terminal -- bash -i -c "sleep 5; /home/bhavin-pathak/Documents/sys-script.sh; echo ''; echo 'Press ENTER to close'; read"
+   Terminal=false
+   X-GNOME-Autostart-enabled=true
+   ```
+
+   **Note:**
+
+   - Replace `/home/bhavin-pathak/Documents/sys-script.sh` with the actual absolute path to your script (e.g., `/home/bhavin-pathak/Downloads/fullstack-linux-setup/cleaner-safe.sh`).
+   - The script will prompt for confirmation (y/N) in the terminal window.
+   - The `sleep 5` gives the system time to fully start before running the script.
+
+3. **Make the .desktop file executable**:
+
+   ```bash
+   chmod +x ~/.config/autostart/sys-script.desktop
+   ```
+
+This will run the cleanup script automatically in a terminal window every time you log in to GNOME. The terminal will open, run the script, prompt for confirmation, display the output, and wait for you to press ENTER to close it.
+
+**⚠️ Warning:** Running cleanup on every login may affect system performance. Monitor the output and disable the autostart if necessary by setting `X-GNOME-Autostart-enabled=false` in the .desktop file.
+
+---
 
 - After installing **Flutter/Dart** or **Node.js**, restart your terminal or run:
   ```bash
