@@ -72,6 +72,22 @@ install_beekeeper() {
     echo -e "${GREEN}Beekeeper Installed.${NC}"
 }
 
+install_pgadmin() {
+    if is_installed pgadmin4; then
+        echo -e "${GREEN}pgAdmin4 is already installed.${NC}"
+        return
+    fi
+    print_msg "Installing pgAdmin4"
+
+    # Repository Setup
+    sudo curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+    sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'
+    
+    sudo apt update
+    sudo apt install pgadmin4 -y
+    echo -e "${GREEN}pgAdmin4 Installed.${NC}"
+}
+
 install_racompass() {
     if is_installed racompass; then
         echo -e "${GREEN}Racompass is already installed.${NC}"
