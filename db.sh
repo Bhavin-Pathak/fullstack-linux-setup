@@ -48,7 +48,7 @@ install_postgres() {
     sudo sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
     
     sudo apt update
-    sudo apt -y install postgresql
+    sudo apt install -y postgresql-16 postgresql-contrib-16
     
     # Enable service
     sudo systemctl enable postgresql
