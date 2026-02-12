@@ -4,7 +4,9 @@
 
 set -e
 
-# Styling
+# ==========================================
+# Styling & Colors
+# ==========================================
 BOLD='\033[1m'
 BLUE='\033[1;34m'
 GREEN='\033[1;32m'
@@ -16,7 +18,9 @@ print_msg() {
     echo -e "\n${BLUE}${BOLD}>>> $1...${NC}\n"
 }
 
-# --- Confirmation ---
+# ==========================================
+# Initial Checks & Confirmation
+# ==========================================
 
 clear
 echo -e "${BLUE}${BOLD}System Cleanup Tool${NC}"
@@ -33,10 +37,10 @@ fi
 # Request Sudo upfront
 sudo -v
 
-# --- Cleaning Steps ---
-
-# 1. APT
-print_msg "Cleaning APT (Packages)"
+# ==========================================
+# 1. System Package Cleanup (APT)
+# ==========================================
+print_msg "Cleaning APT (System Packages)"
 sudo apt update -y
 sudo apt full-upgrade -y
 sudo apt autoremove -y
@@ -44,30 +48,39 @@ sudo apt autoclean -y
 sudo apt clean
 rm -rf ~/.cache/*
 
+# ==========================================
 # 2. System Logs (Journal)
+# ==========================================
 print_msg "Vacuuming System Logs (>3 days)"
+# Keeps only the last 3 days of logs to save space
 sudo journalctl --vacuum-time=3d
 
-# 3. Snap
+# ==========================================
+# 3. Snap Package Cache
+# ==========================================
 print_msg "Cleaning Snap Cache"
-# Remove disabled snaps
+# Remove disabled (old version) snaps
 snap list --all | awk '/disabled/{print $1, $3}' | while read s r; do
     sudo snap remove "$s" --revision="$r"
 done
 rm -rf ~/snap/*/*/.cache
 sudo rm -rf /var/lib/snapd/cache/*
-# Extra safety from old script
+# Clean up leftover Snap trash
 rm -rf ~/snap/*/*/.local/share/Trash/files/*
 
-# 4. Applications (Browsers / IDEs)
+# ==========================================
+# 4. Application Caches
+# ==========================================
 print_msg "Cleaning App Caches (Browsers, IDEs, Thumbnails)"
+
+# Browsers
 rm -rf ~/.cache/google-chrome \
        ~/.cache/chromium \
        ~/.cache/BraveSoftware \
        ~/.cache/mozilla/firefox/*/cache2 \
        ~/.cache/thumbnails/* 
 
-# IDE Specifics (Restored from old script)
+# IDEs (VS Code, Cursor, Windsurf, Android Studio)
 rm -rf ~/.cache/Google/AndroidStudio* \
        ~/.AndroidStudio*/system/{caches,log,tmp} \
        ~/.config/Code/{Cache,CachedData,GPUCache} \
@@ -76,13 +89,16 @@ rm -rf ~/.cache/Google/AndroidStudio* \
        ~/.cache/{Cursor,Windsurf,antigravity} \
        ~/.config/antigravity/{Cache,logs}
 
-# 5. Python (Restored robust logic)
-print_msg "Cleaning Python Caches"
+# ==========================================
+# 5. Language Specific Caches (Python, Node)
+# ==========================================
+print_msg "Cleaning Development Caches"
+
+# Python
 find ~ -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
 rm -rf ~/.cache/pip
 
-# 6. Node / JS (Restored robust logic)
-print_msg "Cleaning Node/JS Caches"
+# Node / JS
 rm -rf ~/.npm \
        ~/.cache/{npm,node-gyp,yarn,bun} \
        ~/.yarn/cache \
@@ -90,11 +106,15 @@ rm -rf ~/.npm \
        ~/.local/share/pnpm/store \
        ~/.bun/install/cache
 
-# 7. Trash
+# ==========================================
+# 6. User Trash
+# ==========================================
 print_msg "Emptying User Trash"
 rm -rf ~/.local/share/Trash/*
 
-# 8. Docker (Restored robust readiness checks)
+# ==========================================
+# 7. Docker Environment
+# ==========================================
 print_msg "Checking Docker Environment"
 DOCKER_READY=false
 
@@ -112,22 +132,24 @@ fi
 
 if [ "$DOCKER_READY" = true ]; then
   echo -e "${YELLOW}Pruning Docker (unused images, containers, networks)...${NC}"
-  docker system df
-  docker container prune -f
-  docker image prune -af
-  docker builder prune -af
-  docker system df
+  # Prune everything not currently used
+  docker system prune -f
+  # Optional: aggressive prune (commented out for safety, uncomment if desired)
+  # docker system prune -af --volumes
   echo -e "${GREEN}✔ Docker cleanup completed${NC}"
 else
   echo -e "${YELLOW}⚠️ Docker not running. Skipped Docker cleanup.${NC}"
 fi
 
-# 9. Temp Files
+# ==========================================
+# 8. Temporary Files
+# ==========================================
 print_msg "Cleaning Temp Files"
 sudo rm -rf /tmp/* /var/tmp/* 2>/dev/null || true
 
-# --- Finish ---
-
+# ==========================================
+# Completion
+# ==========================================
 echo -e "\n${GREEN}✨ System Cleaned Successfully! ✨${NC}"
 df -h / | grep /
 echo -e "\n"
