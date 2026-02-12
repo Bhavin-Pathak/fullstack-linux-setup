@@ -58,8 +58,9 @@ install_cursor() {
     print_header "Installing Cursor AI Editor (.deb)"
     echo -e "${BLUE}Downloading Cursor .deb package...${NC}"
     
-    # Official direct download link for Linux .deb (x64)
-    wget -O cursor.deb "https://downloader.cursor.sh/linux/debian/x64"
+    # Official direct download link for Linux .deb (x64) provided by user
+    # Note: This link might be version-specific.
+    wget -O cursor.deb "https://downloads.cursor.com/production/d2bf8ec12017b1049f304ad3a5c8867b117ed836/linux/x64/deb/amd64/deb/cursor_2.4.35_amd64.deb"
     
     echo -e "${BLUE}Installing Cursor...${NC}"
     # This will install and also trigger the repo addition prompt if applicable
