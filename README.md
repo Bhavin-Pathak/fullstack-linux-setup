@@ -1,4 +1,4 @@
-# 🚀 Linux Genesis: The Ultimate Dev Environment
+# 🚀 Linux Dev Env Bootstrap
 
 **One script to rule them all.**  
 Transform a fresh Ubuntu/Debian installation into a **God-tier Development Machine** in minutes.
@@ -18,8 +18,8 @@ Transform a fresh Ubuntu/Debian installation into a **God-tier Development Machi
 Forget running 20 commands. Just clone and run **Genesis**:
 
 ```bash
-git clone https://github.com/Bhavin-Pathak/fullstack-linux-setup.git
-cd fullstack-linux-setup
+git clone https://github.com/Bhavin-Pathak/linux-dev-env-bootstrap.git
+cd linux-dev-env-bootstrap
 chmod +x *.sh
 ./genesis.sh
 ```
