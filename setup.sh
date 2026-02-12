@@ -1,0 +1,68 @@
+#!/bin/bash
+# Author: Bhavin Pathak
+# Description: Master Setup Script - The Gateway to Your Dev Environment
+
+# Styling
+BOLD='\033[1m'
+BLUE='\033[1;34m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m'
+
+# Ensure scripts are executable
+chmod +x *.sh
+
+show_menu() {
+    clear
+    echo -e "${BLUE}${BOLD}🚀 Fullstack Linux Setup 🚀${NC}"
+    echo -e "---------------------------------"
+    echo -e "Select a setup to run:"
+    echo -e "---------------------------------"
+    echo -e "${YELLOW}1.${NC}  Terminal (Zsh, Starship, NerdFonts) 🎨"
+    echo -e "${YELLOW}2.${NC}  Git Setup (Config, SSH, GH CLI) 🐙"
+    echo -e "${YELLOW}3.${NC}  IDEs (VS Code, Cursor, Windsurf) 💻"
+    echo -e "${YELLOW}4.${NC}  Browsers (Chrome, Brave, Firefox) 🌐"
+    echo -e "${YELLOW}5.${NC}  Node.js Stack (NVM, Yarn, Bun) 🟩"
+    echo -e "${YELLOW}6.${NC}  Python Stack (Pip, Venv) 🐍"
+    echo -e "${YELLOW}7.${NC}  Java Stack (OpenJDK 17) ☕"
+    echo -e "${YELLOW}8.${NC}  Flutter Stack (Dart, Android Studio) 📱"
+    echo -e "${YELLOW}9.${NC}  Docker (Desktop / Engine) 🐳"
+    echo -e "${YELLOW}10.${NC} Databases (Mongo, Postgres, Redis) 🗄️"
+    echo -e "${YELLOW}11.${NC} DB GUIs (DBeaver, Compass) 👁️"
+    echo -e "${YELLOW}12.${NC} API Tools (Postman, Insomnia) 🚀"
+    echo -e "${YELLOW}13.${NC} Apps (Slack, Spotify, OBS, Discord) 🎧"
+    echo -e "${YELLOW}14.${NC} Cloud Tools (AWS, Terraform, K8s) ☁️"
+    echo -e "${YELLOW}15.${NC} System Cleaner 🧹"
+    echo -e "---------------------------------"
+    echo -e "${RED}0. Exit${NC}"
+    echo -e "---------------------------------"
+}
+
+while true; do
+    show_menu
+    read -p "Enter your choice: " choice
+    
+    case $choice in
+        1) ./terminal.sh ;;
+        2) ./git-setup.sh ;;
+        3) ./ide.sh ;;
+        4) ./browsers.sh ;;
+        5) ./node.sh ;;
+        6) ./python.sh ;;
+        7) ./java.sh ;;
+        8) ./flutter.sh ;;
+        9) ./docker.sh ;;
+        10) ./db.sh ;;
+        11) ./db-view.sh ;;
+        12) ./api-test.sh ;;
+        13) ./apps.sh ;;
+        14) ./cloud.sh ;;
+        15) ./cleaner.sh ;;
+        0) echo -e "\n${GREEN}Happy Coding! 🚀${NC}"; exit 0 ;;
+        *) echo -e "\n${RED}Invalid option. Please try again.${NC}"; sleep 1 ;;
+    esac
+    
+    echo -e "\n${BLUE}Press Enter to return to menu...${NC}"
+    read
+done
