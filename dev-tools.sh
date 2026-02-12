@@ -91,11 +91,53 @@ install_notepadpp() {
 }
 
 install_antigravity() {
-    # Placeholder for "Antigravity" IDE if it exists, or maybe user meant general AI tools?
-    # Assuming user might have meant a specific tool or just a fun name. 
-    # Skipping for now unless a real package exists.
-    echo -e "${RED}Antigravity IDE package not found/supported yet.${NC}"
+    if check_cmd antigravity; then
+        echo -e "${GREEN}Antigravity is already installed.${NC}"
+        return
+    fi
+    print_header "Installing Antigravity IDE"
+    
+    # 1. Create keyrings directory
+    sudo mkdir -p /etc/apt/keyrings
+    
+    # 2. Add GPG Key
+    print_header "Adding Antigravity GPG Key..."
+    curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+      sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+    
+    # 3. Add Repository
+    print_header "Adding Antigravity Repository..."
+    echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+      sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+    
+    # 4. Update and Install
+    print_header "Updating apt and installing..."
+    sudo apt update
+    sudo apt install antigravity -y
+    
+    echo -e "${GREEN}Antigravity IDE installed successfully.${NC}"
 }
+
+install_windsurf() {
+    if check_cmd windsurf; then
+        echo -e "${GREEN}Windsurf is already installed.${NC}"
+        return
+    fi
+    print_header "Installing Windsurf (Codeium AI IDE)"
+    
+    # Logic merged from windsurf-ide-setup.sh
+    sudo apt-get install wget gpg -y
+    wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | gpg --dearmor > windsurf-stable.gpg
+    sudo install -D -o root -g root -m 644 windsurf-stable.gpg /etc/apt/keyrings/windsurf-stable.gpg
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" | sudo tee /etc/apt/sources.list.d/windsurf.list > /dev/null
+    rm -f windsurf-stable.gpg
+    sudo apt install apt-transport-https -y
+    sudo apt update
+    sudo apt install windsurf -y
+    
+    echo -e "${GREEN}Windsurf IDE installed successfully.${NC}"
+}
+
 
 # --- Main ---
 
@@ -115,6 +157,18 @@ if confirm_install "Cursor AI Editor"; then
     install_cursor
 else
     echo -e "${RED}Skipped Cursor.${NC}"
+fi
+
+if confirm_install "Antigravity IDE (Internal/Beta)"; then
+    install_antigravity
+else
+    echo -e "${RED}Skipped Antigravity.${NC}"
+fi
+
+if confirm_install "Windsurf (Codeium)"; then
+    install_windsurf
+else
+    echo -e "${RED}Skipped Windsurf.${NC}"
 fi
 
 if confirm_install "Sublime Text"; then
