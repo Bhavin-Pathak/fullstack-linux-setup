@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Bhavin Pathak
-# Description: Master Setup Script - The Gateway to Your Dev Environment
+# Description: Genesis Script - The Origin of Your Dev Environment
 
 # Styling
 BOLD='\033[1m'
