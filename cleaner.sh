@@ -38,6 +38,7 @@ sudo -v
 # 1. APT
 print_msg "Cleaning APT (Packages)"
 sudo apt update -y
+sudo apt full-upgrade -y
 sudo apt autoremove -y
 sudo apt autoclean -y
 sudo apt clean
@@ -55,6 +56,8 @@ snap list --all | awk '/disabled/{print $1, $3}' | while read s r; do
 done
 rm -rf ~/snap/*/*/.cache
 sudo rm -rf /var/lib/snapd/cache/*
+# Extra safety from old script
+rm -rf ~/snap/*/*/.local/share/Trash/files/*
 
 # 4. Applications (Browsers / IDEs)
 print_msg "Cleaning App Caches (Browsers, IDEs, Thumbnails)"
@@ -62,34 +65,66 @@ rm -rf ~/.cache/google-chrome \
        ~/.cache/chromium \
        ~/.cache/BraveSoftware \
        ~/.cache/mozilla/firefox/*/cache2 \
-       ~/.cache/thumbnails/* \
-       ~/.cache/pip \
-       ~/.npm/_cacache
-       
-# IDE Specifics
-rm -rf ~/.config/Code/Cache \
-       ~/.config/Code/CachedData \
-       ~/.config/Cursor/Cache \
-       ~/.config/Cursor/CachedData \
-       ~/.config/antigravity/Cache
+       ~/.cache/thumbnails/* 
 
-# 5. Trash
+# IDE Specifics (Restored from old script)
+rm -rf ~/.cache/Google/AndroidStudio* \
+       ~/.AndroidStudio*/system/{caches,log,tmp} \
+       ~/.config/Code/{Cache,CachedData,GPUCache} \
+       ~/.config/Cursor/{Cache,CachedData,GPUCache} \
+       ~/.config/Windsurf/{Cache,CachedData,GPUCache} \
+       ~/.cache/{Cursor,Windsurf,antigravity} \
+       ~/.config/antigravity/{Cache,logs}
+
+# 5. Python (Restored robust logic)
+print_msg "Cleaning Python Caches"
+find ~ -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
+rm -rf ~/.cache/pip
+
+# 6. Node / JS (Restored robust logic)
+print_msg "Cleaning Node/JS Caches"
+rm -rf ~/.npm \
+       ~/.cache/{npm,node-gyp,yarn,bun} \
+       ~/.yarn/cache \
+       ~/.pnpm-store \
+       ~/.local/share/pnpm/store \
+       ~/.bun/install/cache
+
+# 7. Trash
 print_msg "Emptying User Trash"
 rm -rf ~/.local/share/Trash/*
 
-# 6. Docker
-print_msg "Checking Docker"
-if command -v docker &> /dev/null; then
-    echo -e "${YELLOW}Pruning Docker (unused images, containers, networks)...${NC}"
-    docker system prune -f
-else
-    echo "Docker not found, skipping."
+# 8. Docker (Restored robust readiness checks)
+print_msg "Checking Docker Environment"
+DOCKER_READY=false
+
+if command -v docker-desktop &> /dev/null || [ -d "$HOME/.docker/desktop" ]; then
+  # Try to start Docker Desktop if present
+  systemctl --user start docker-desktop || true
+  sleep 5
+  docker info &> /dev/null && DOCKER_READY=true
+elif systemctl list-unit-files | grep -q docker.service; then
+  # Fallback to standard Docker Engine
+  sudo systemctl start docker
+  sleep 3
+  docker info &> /dev/null && DOCKER_READY=true
 fi
 
-# 7. Temp Files
+if [ "$DOCKER_READY" = true ]; then
+  echo -e "${YELLOW}Pruning Docker (unused images, containers, networks)...${NC}"
+  docker system df
+  docker container prune -f
+  docker image prune -af
+  docker builder prune -af
+  docker system df
+  echo -e "${GREEN}✔ Docker cleanup completed${NC}"
+else
+  echo -e "${YELLOW}⚠️ Docker not running. Skipped Docker cleanup.${NC}"
+fi
+
+# 9. Temp Files
 print_msg "Cleaning Temp Files"
-sudo rm -rf /tmp/* 2>/dev/null || true
-sudo rm -rf /var/tmp/* 2>/dev/null || true
+sudo rm -rf /tmp/* /var/tmp/* 2>/dev/null || true
 
 # --- Finish ---
 
