@@ -36,8 +36,8 @@ Includes programming languages, databases, container tools, IDEs, and system mai
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Bhavin-Pathak/fullstack-linux-setup.git
-cd fullstack-linux-setup
+git clone https://github.com/Bhavin-Pathak/linux-dev-env-bootstrap.git
+cd linux-dev-env-bootstrap
 chmod +x *.sh
 ```
 
