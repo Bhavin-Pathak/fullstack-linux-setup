@@ -5,6 +5,14 @@ Transform a fresh Ubuntu/Debian installation into a **God-tier Development Machi
 
 ---
 
+## ⚠️ Requirements
+
+-   **OS**: Ubuntu 22.04 LTS / Debian-based distributions.
+-   **Internet**: Required for downloading packages.
+-   **Sudo**: Scripts will ask for permission when needed.
+
+---
+
 ## ⚡ Quick Start
 
 Forget running 20 commands. Just clone and run **Genesis**:
