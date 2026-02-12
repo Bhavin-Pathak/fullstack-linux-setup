@@ -50,34 +50,23 @@ install_vscode() {
 }
 
 install_cursor() {
-    if [ -f "/usr/local/bin/cursor" ] || [ -f "$HOME/Applications/cursor.AppImage" ]; then
-        echo -e "${GREEN}Cursor is already installed (checked custom paths).${NC}"
-        # Note: Cursor doesn't have a standard CLI command 'cursor' unless aliased, 
-        # checking generic paths or skipping version check essentially.
+    if check_cmd cursor; then
+        echo -e "${GREEN}Cursor is already installed.${NC}"
         return
     fi
 
-    # Cursor is an AppImage, usually requires manual download or script. 
-    # Since there's no official snap, we'll try to fetch the AppImage.
-    print_header "Installing Cursor AI Editor"
-    echo -e "${BLUE}Downloading Cursor AppImage...${NC}"
+    print_header "Installing Cursor AI Editor (.deb)"
+    echo -e "${BLUE}Downloading Cursor .deb package...${NC}"
     
-    mkdir -p ~/Applications
-    wget -O ~/Applications/cursor.AppImage "https://downloader.cursor.sh/linux/appImage/x64"
-    chmod +x ~/Applications/cursor.AppImage
+    # Official direct download link for Linux .deb (x64)
+    wget -O cursor.deb "https://downloader.cursor.sh/linux/debian/x64"
     
-    # Create Desktop Entry
-    echo -e "${BLUE}Creating Desktop Shortcut...${NC}"
-    cat > ~/.local/share/applications/cursor.desktop <<EOL
-[Desktop Entry]
-Name=Cursor
-Exec=$HOME/Applications/cursor.AppImage
-Icon=utilities-terminal
-Type=Application
-Categories=Development;
-EOL
-
-    echo -e "${GREEN}Cursor installed in ~/Applications/cursor.AppImage${NC}"
+    echo -e "${BLUE}Installing Cursor...${NC}"
+    # This will install and also trigger the repo addition prompt if applicable
+    sudo apt install ./cursor.deb -y
+    
+    rm cursor.deb
+    echo -e "${GREEN}Cursor installed successfully.${NC}"
 }
 
 install_sublime() {
