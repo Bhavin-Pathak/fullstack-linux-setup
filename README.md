@@ -5,21 +5,29 @@ Includes programming languages, databases, container tools, IDEs, and system mai
 
 ---
 
+## ⚠️ Notes
+
+-   **OS**: Designed for Ubuntu 22.04 LTS or compatible Debian-based distros.
+-   **Permissions**: Scripts will request `sudo` access where necessary.
+-   **Smart Config**: Language scripts detect your shell (`bash` vs `zsh`) and update the correct config file automatically.
+
+---
+
 ## 📋 Script Inventory
 
 | Script | Purpose | Key Features |
 | :--- | :--- | :--- |
-| **`>_ ide.sh`** | IDE Installer | VS Code, Cursor, Antigravity, Windsurf, Sublime Text & More. Interactive menu. |
-| **`>_ browsers.sh`** | Web Browsers | Chrome, Brave, Firefox, Opera, Chromium. Interactive menu. |
-| **`>_ db.sh`** | Database Servers | PostgreSQL 16, MongoDB 8, Redis, Milvus. Interactive menu. |
-| **`>_ db-view.sh`** | Database GUIs | DBeaver, pgAdmin4, MongoDB Compass, Redis Insight. |
-| **`>_ api-test.sh`** | API Tools | Postman, Insomnia. |
-| **`>_ docker.sh`** | Containerization | Smart Install: Docker Desktop (GUI) or Docker Engine (CLI). |
-| **`>_ node.sh`** | JavaScript Stack | NVM, Node LTS, Yarn, PNPM, Bun. **Smart Shell Config** (zsh/bash). |
-| **`>_ python.sh`** | Python Stack | Python 3, Pip, Venv. **Smart Shell Config** (zsh/bash). |
-| **`>_ java.sh`** | Java Stack | OpenJDK 17. **Smart Shell Config** (JAVA_HOME). |
-| **`>_ flutter.sh`** | Mobile Stack | Flutter SDK, Dart, Android Studio. **Smart Shell Config**. |
-| **`>_ cleaner.sh`** | System Maintenance | Safe Cleanup: Logs (>3d), Cache, Trash, Docker Prune. |
+| **`ide.sh`** | IDE Installer | VS Code, Cursor, Antigravity, Windsurf, Sublime Text & More. Interactive menu. |
+| **`browsers.sh`** | Web Browsers | Chrome, Brave, Firefox, Opera, Chromium. Interactive menu. |
+| **`db.sh`** | Database Servers | PostgreSQL 16, MongoDB 8, Redis, Milvus. Interactive menu. |
+| **`db-view.sh`** | Database GUIs | DBeaver, pgAdmin4, MongoDB Compass, Redis Insight. |
+| **`api-test.sh`** | API Tools | Postman, Insomnia. |
+| **`docker.sh`** | Containerization | Smart Install: Docker Desktop (GUI) or Docker Engine (CLI). |
+| **`node.sh`** | JavaScript Stack | NVM, Node LTS, Yarn, PNPM, Bun. **Smart Shell Config** (zsh/bash). |
+| **`python.sh`** | Python Stack | Python 3, Pip, Venv. **Smart Shell Config** (zsh/bash). |
+| **`java.sh`** | Java Stack | OpenJDK 17. **Smart Shell Config** (JAVA_HOME). |
+| **`flutter.sh`** | Mobile Stack | Flutter SDK, Dart, Android Studio. **Smart Shell Config**. |
+| **`cleaner.sh`** | System Maintenance | Safe Cleanup: Logs (>3d), Cache, Trash, Docker Prune. |
 
 ---
 
@@ -80,11 +88,3 @@ python3 --version
 java -version
 docker --version
 ```
-
----
-
-## ⚠️ Notes
-
--   **OS**: Designed for Ubuntu 22.04 LTS or compatible Debian-based distros.
--   **Permissions**: Scripts will request `sudo` access where necessary.
--   **Smart Config**: Language scripts detect your shell (`bash` vs `zsh`) and update the correct config file automatically.
