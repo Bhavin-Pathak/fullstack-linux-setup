@@ -63,11 +63,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 
 ---
 
-## ⚠️ Requirements
 
--   **OS**: Ubuntu 22.04 LTS / Debian-based distributions.
--   **Internet**: Required for downloading packages.
--   **Sudo**: Scripts will ask for permission when needed.
 
 ---
 
