@@ -91,6 +91,7 @@ echo -e "-----------------------"
 setup_snap
 
 ask_install "DBeaver (Universal)" && install_dbeaver
+ask_install "pgAdmin4 (PostgreSQL)" && install_pgadmin
 ask_install "MongoDB Compass" && install_compass
 ask_install "Beekeeper Studio" && install_beekeeper
 ask_install "Racompass (Redis)" && install_racompass
