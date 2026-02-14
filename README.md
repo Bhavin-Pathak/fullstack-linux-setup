@@ -3,7 +3,6 @@
 **One script to rule them all.**  
 Transform a fresh Ubuntu/Debian installation into a **God-tier Development Machine** in minutes.
 
----
 
 ## ⚠️ Requirements
 
@@ -11,7 +10,6 @@ Transform a fresh Ubuntu/Debian installation into a **God-tier Development Machi
 -   **Internet**: Required for downloading packages.
 -   **Sudo**: Scripts will ask for permission when needed.
 
----
 
 ## ⚡ Quick Start
 
@@ -26,7 +24,6 @@ chmod +x *.sh
 
 **`genesis.sh`** is the master control center. It launches an interactive menu where you can choose exactly what to install.
 
----
 
 ## 🛠️ The Arsenal (Script Inventory)
 
@@ -54,10 +51,6 @@ Every script is standalone, but `genesis.sh` brings them together.
 -   **Local Font Support**: `terminal.sh` checks for a local `Hack.zip` before downloading from the internet.
 -   **Modular**: Run `genesis.sh` for the menu, or `./docker.sh` if you just want Docker.
 -   **Safe Cleaning**: `cleaner.sh` is aggressive but safe. It won't delete your personal files, but it will vacuum system logs and clear caches.
-
----
-
-
 
 ---
 
