@@ -33,6 +33,21 @@ ask_install() {
     esac
 }
 
+check_and_ask() {
+    local name="$1"
+    local check_cmd="$2"
+    local install_func="$3"
+    local check_type="${4:-command}"
+
+    if is_installed "$check_cmd"; then
+        echo -e "${GREEN}✔ $name is already installed. Skipped.${NC}"
+    else
+        if ask_install "$name"; then
+            $install_func
+        fi
+    fi
+}
+
 # --- Installers ---
 
 install_java() {
@@ -142,9 +157,9 @@ echo -e "---------------------------"
 
 setup_snap
 
-ask_install "Java (OpenJDK 17)" && install_java
-ask_install "Flutter SDK" && install_flutter
-ask_install "Android Studio" && install_android_studio
+check_and_ask "Java (OpenJDK 17)" "java" install_java
+check_and_ask "Flutter SDK" "flutter" install_flutter
+check_and_ask "Android Studio" "android-studio" install_android_studio
 
 echo -e "\n${GREEN}Setup Complete! 📱${NC}"
 echo -e "${YELLOW}Don't forget to run 'flutter doctor' after restarting your terminal.${NC}\n"
