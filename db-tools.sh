@@ -149,25 +149,14 @@ install_racompass() {
 install_milvus() {
     check_libstdc
     print_msg "Installing Milvus (Vector DB)"
-    
-    if ! is_installed alien; then
-        print_msg "Installing 'alien' to handle RPM packages"
-        sudo apt install alien -y
-    fi
 
-    # Using user-specified RPM link
-    wget -O milvus.rpm "https://github.com/milvus-io/milvus/releases/download/v2.6.9/milvus_2.6.9-1_amd64.rpm"
+    # Using user-specified DEB link (v2.6.9)
+    wget -O milvus.deb "https://github.com/milvus-io/milvus/releases/download/v2.6.9/milvus_2.6.9-1_amd64.deb"
     
-    print_msg "Converting RPM to DEB..."
-    sudo alien milvus.rpm --scripts
-    
-    local deb_file=$(ls milvus*.deb | head -n 1)
-    if [ -n "$deb_file" ]; then
-        sudo dpkg -i "$deb_file"
-        sudo apt-get -f install -y
-        rm "$deb_file"
-    fi
-    rm milvus.rpm
+    print_msg "Installing Milvus Package..."
+    sudo dpkg -i milvus.deb
+    sudo apt-get -f install -y
+    rm milvus.deb
     
     # Attempt to start service
     if [ -f /usr/lib/systemd/system/milvus.service ] || [ -f /lib/systemd/system/milvus.service ]; then
