@@ -71,6 +71,33 @@ install_browser_snap() {
     echo -e "${GREEN}$name installed successfully.${NC}"
 }
 
+install_edge() {
+    if check_cmd microsoft-edge-stable; then
+        echo -e "${GREEN}Microsoft Edge is already installed.${NC}"
+        return
+    fi
+    print_header "Installing Microsoft Edge"
+    wget "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_145.0.3800.58-1_amd64.deb?brand=M102" -O edge.deb
+    sudo apt install ./edge.deb -y
+    rm edge.deb
+    echo -e "${GREEN}Microsoft Edge installed successfully.${NC}"
+}
+
+install_tor() {
+    if [ -d "$HOME/tor-browser" ]; then
+        echo -e "${GREEN}Tor Browser is already installed in $HOME/tor-browser.${NC}"
+        return
+    fi
+    print_header "Installing Tor Browser"
+    wget "https://dist.torproject.org/torbrowser/15.0.5/tor-browser-linux-x86_64-15.0.5.tar.xz" -O tor.tar.xz
+    tar -xJf tor.tar.xz -C "$HOME"
+    mv "$HOME/tor-browser-linux-x86_64-15.0.5" "$HOME/tor-browser" 2>/dev/null || true
+    rm tor.tar.xz
+    echo -e "${GREEN}Tor Browser installed in $HOME/tor-browser.${NC}"
+    echo -e "${YELLOW}Run it with: $HOME/tor-browser/start-tor-browser.desktop${NC}"
+}
+
+
 # --- Main ---
 
 clear
@@ -86,6 +113,12 @@ else
     echo -e "${RED}Skipped Chrome.${NC}"
 fi
 
+if confirm_install "Microsoft Edge"; then
+    install_edge
+else
+    echo -e "${RED}Skipped Edge.${NC}"
+fi
+
 if confirm_install "Brave Browser"; then
     install_browser_snap "Brave" "brave"
 else
@@ -98,16 +131,39 @@ else
     echo -e "${RED}Skipped Firefox.${NC}"
 fi
 
+if confirm_install "Vivaldi"; then
+    install_browser_snap "Vivaldi" "vivaldi"
+else
+    echo -e "${RED}Skipped Vivaldi.${NC}"
+fi
+
 if confirm_install "Opera"; then
     install_browser_snap "Opera" "opera"
 else
     echo -e "${RED}Skipped Opera.${NC}"
 fi
 
+if confirm_install "Tor Browser"; then
+    install_tor
+else
+    echo -e "${RED}Skipped Tor.${NC}"
+fi
+
 if confirm_install "Chromium"; then
     install_browser_snap "Chromium" "chromium"
 else
     echo -e "${RED}Skipped Chromium.${NC}"
+fi
+
+    install_browser_snap "Vivaldi" "vivaldi"
+else
+    echo -e "${RED}Skipped Vivaldi.${NC}"
+fi
+
+if confirm_install "Tor Browser"; then
+    install_browser_snap "Tor Browser" "torbrowser"
+else
+    echo -e "${RED}Skipped Tor Browser.${NC}"
 fi
 
 echo -e "\n${GREEN}${BOLD}All Done! Happy Surfing 🌐${NC}\n"
