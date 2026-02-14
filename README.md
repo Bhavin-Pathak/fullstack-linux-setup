@@ -41,8 +41,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`communication.sh`** | **Chat** | Slack, Discord, Zoom, Microsoft Teams. |
 | **`media.sh`** | **Media** | Spotify, VLC, OBS Studio. |
 | **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
-| **`db.sh`** | **Databases** | Postgres 16, MongoDB 8, Redis, Milvus. (Dockerized). |
-| **`db-view.sh`** | **DB GUIs** | DBeaver, pgAdmin4, Compass, Redis Insight. |
+| **`db.sh`** | **Databases** | Postgres 16, Mongo 8, Redis, Milvus + **GUIs** (pgAdmin, Compass, Attu, DBeaver). |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
 | **`node.sh`** | **JS Stack** | NVM, Node, Yarn, PNPM (**Smart Config**). |
 | **`python.sh`** | **Python** | Python 3, Pip, Venv (**Smart Config**). |
