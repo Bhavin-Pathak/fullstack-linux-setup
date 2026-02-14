@@ -122,27 +122,16 @@ install_librewolf() {
 
 install_tor() {
     print_msg "Installing Tor Browser"
-    # Keeping Launcher as it's the standard apt way, usually acceptable unless user specified otherwise (didn't specify for Tor this time)
-    # Actually, previous conversation used tarball for Tor because user wanted specific manual install not snap.
-    # I should check if I should revert to tarball or keep apt. 
-    # User's recent request didn't mention Tor changes, but I should be consistent.
-    # The view_file output showed I had switched to `torbrowser-launcher` in the previous step (1336).
-    # Wait, 1336 output shows `install_tor` using tarball manual install in the `view_file` output I got.
-    
-    # URL provided by user
+    # Download Tor Browser
     wget "https://dist.torproject.org/torbrowser/15.0.5/tor-browser-linux-x86_64-15.0.5.tar.xz" -O tor.tar.xz
-    
+    # Extract Tor Browser
     print_msg "Extracting Tor Browser..."
     tar -xf tor.tar.xz
-    
-    # Move to home directory if not already there, or just keep in current?
-    # Best practice: Move to $HOME/tor-browser if it doesn't exist to avoid clutter
-    # extracting creates 'tor-browser' directory typically.
-    
+    # Move to home directory if not already there
     if [ -d "tor-browser" ]; then
         mv tor-browser "$HOME/tor-browser"
     fi
-    
+    # Clean up
     rm tor.tar.xz
     echo -e "${GREEN}Tor Browser downloaded to $HOME/tor-browser.${NC}"
     echo -e "${YELLOW}Run it with: $HOME/tor-browser/start-tor-browser.desktop${NC}"
