@@ -32,19 +32,19 @@ chmod +x *.sh
 
 Every script is standalone, but `genesis.sh` brings them together.
 
-| Script | Purpose | Power Features |
-| :--- | :--- | :--- |
-| **`genesis.sh`** | **Master Menu** | 🔥 The Origin. Runs all other scripts. |
-| **`terminal.sh`** | **Terminal** | **Zsh**, **Powerlevel10k**, **Hack Fonts**, `bat`, `eza`, `fzf`. |
-| **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Antigravity, Sublime, Notepad++. |
-| **`browsers.sh`** | **Browsers** | Chrome, Edge, Firefox, Brave, Vivaldi, Opera, Chromium, Librewolf, Tor. |
-| **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
-| **`db-tools.sh`** | **Databases & GUIs** | Postgres, Mongo, Redis, Milvus + **GUIs** |
-| **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
-| **`node-py.sh`** | **Node & Python** | NVM, Node, Yarn, PNPM, Bun, Python 3, Pip, Venv (**Smart Config**). |
-| **`java-flutter.sh`** | **Mobile** | Java 17, Flutter SDK, Dart, Android Studio. |
-| **`essentials.sh`** | **Desktop Apps** | Slack, Discord, Zoom, Teams, WhatsApp, Telegram, Spotify, VLC, OBS, Audacity, Blender, Figma, Steam, Flameshot, GParted, Btop. |
-| **`cleaner.sh`** | **Maintenance** | 🧹 Deep Clean: Logs, Cache, Trash, Docker Prune. |
+| Script | Description |
+| :--- | :--- |
+| **`genesis.sh`** | 🔥 **Master Menu**. The Origin. Runs all other scripts. |
+| **`terminal.sh`** | **Terminal**. Zsh, Powerlevel10k, Hack Fonts, `bat`, `eza`, `fzf`. |
+| **`ide.sh`** | **IDEs**. VS Code, Cursor, Windsurf, Antigravity, Sublime, Notepad++. |
+| **`browsers.sh`** | **Browsers**. Chrome, Edge, Firefox, Brave, Vivaldi, Opera, Chromium, Tor. |
+| **`node-py.sh`** | **Node & Python**. NVM, Node, Yarn, Bun, Python 3, Pip, Venv. |
+| **`java-flutter.sh`** | **Mobile**. OpenJDK 17, Flutter SDK, Dart, Android Studio. |
+| **`cloud-docker.sh`** | **DevOps**. AWS, Terraform, K8s, Ansible, Azure, Docker. |
+| **`db-tools.sh`** | **Databases**. Postgres, Mongo, Redis, Milvus + GUIs (pgAdmin, Compass). |
+| **`api-test.sh`** | **API Tools**. Postman, Insomnia. |
+| **`essentials.sh`** | **Apps**. Slack, Discord, Spotify, VLC, OBS, Steam, Tools. |
+| **`cleaner.sh`** | **Maintenance**. 🧹 Deep Clean: Logs, Cache, Trash, Docker Prune. |
 
 ---
 
