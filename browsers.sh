@@ -75,8 +75,9 @@ install_brave() {
 }
 
 install_firefox() {
-    print_msg "Installing Firefox"
-    sudo apt install firefox -y
+    print_msg "Installing Firefox (Snap)"
+    # Ensure snap is installed (handled in main)
+    sudo snap install firefox
     echo -e "${GREEN}Firefox Installed.${NC}"
 }
 
@@ -127,15 +128,24 @@ install_tor() {
     # User's recent request didn't mention Tor changes, but I should be consistent.
     # The view_file output showed I had switched to `torbrowser-launcher` in the previous step (1336).
     # Wait, 1336 output shows `install_tor` using tarball manual install in the `view_file` output I got.
-    # Ah, I replaced the file entirely in 1341 with content that used `torbrowser-launcher`.
-    # Then I viewed it in 1336 (Wait, 1336 was BEFORE 1341).
-    # So my overwrite in 1341 changed it to apt launcher.
-    # If the user liked the manual tarball (from "Add Special Browsers" task), I might have regressed it.
-    # However, the user didn't complain about Tor.
-    # But to be safe and "cool", the tarball is often preferred by power users.
-    # I'll stick to the launcher for simplicity unless asked, as it auto-updates easiest.
-    sudo apt install torbrowser-launcher -y
-    echo -e "${GREEN}Tor Browser Launcher Installed.${NC}"
+    
+    # URL provided by user
+    wget "https://dist.torproject.org/torbrowser/15.0.5/tor-browser-linux-x86_64-15.0.5.tar.xz" -O tor.tar.xz
+    
+    print_msg "Extracting Tor Browser..."
+    tar -xf tor.tar.xz
+    
+    # Move to home directory if not already there, or just keep in current?
+    # Best practice: Move to $HOME/tor-browser if it doesn't exist to avoid clutter
+    # extracting creates 'tor-browser' directory typically.
+    
+    if [ -d "tor-browser" ]; then
+        mv tor-browser "$HOME/tor-browser"
+    fi
+    
+    rm tor.tar.xz
+    echo -e "${GREEN}Tor Browser downloaded to $HOME/tor-browser.${NC}"
+    echo -e "${YELLOW}Run it with: $HOME/tor-browser/start-tor-browser.desktop${NC}"
 }
 
 # --- Main ---
@@ -152,7 +162,7 @@ fi
 check_and_ask "Google Chrome" "google-chrome" install_chrome
 check_and_ask "Microsoft Edge" "microsoft-edge-stable" install_edge
 check_and_ask "Brave Browser" "brave" install_brave "snap"
-check_and_ask "Firefox" "firefox" install_firefox
+check_and_ask "Firefox" "firefox" install_firefox "snap"
 check_and_ask "Chromium" "chromium" install_chromium "snap"
 check_and_ask "Vivaldi" "vivaldi" install_vivaldi "snap"
 check_and_ask "Opera" "opera" install_opera "snap"
