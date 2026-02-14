@@ -15,7 +15,7 @@ chmod +x *.sh
 
 show_menu() {
     clear
-    echo -e "${BLUE}${BOLD}� Linux Dev Env Bootstrap${NC}"
+    echo -e "${BLUE}${BOLD}🐧 Linux Dev Env Bootstrap${NC}"
     echo -e "${BLUE}https://github.com/Bhavin-Pathak/linux-dev-env-bootstrap${NC}"
     echo -e "--------------------------------------------------------"
     echo -e "Transform your fresh OS into a God-tier Dev Machine."
