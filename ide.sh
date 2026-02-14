@@ -108,11 +108,6 @@ install_notepadpp() {
     echo -e "${GREEN}Notepad++ Installed.${NC}"
 }
 
-install_neovim() {
-    print_msg "Installing NeoVim"
-    sudo apt install neovim -y
-    echo -e "${GREEN}NeoVim Installed.${NC}"
-}
 
 install_antigravity() {
     print_msg "Installing Antigravity IDE"
@@ -152,7 +147,6 @@ check_and_ask "Cursor IDE" "cursor" install_cursor
 check_and_ask "Windsurf IDE" "windsurf" install_windsurf
 check_and_ask "Sublime Text" "sublime-text" install_sublime "snap"
 check_and_ask "Notepad++" "notepad-plus-plus" install_notepadpp "snap"
-check_and_ask "NeoVim" "nvim" install_neovim
 check_and_ask "Antigravity IDE" "antigravity" install_antigravity
 
 echo -e "\n${GREEN}IDE Setup Complete! 💻${NC}\n"
