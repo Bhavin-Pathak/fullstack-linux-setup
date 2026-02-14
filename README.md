@@ -36,10 +36,10 @@ Every script is standalone, but `genesis.sh` brings them together.
 | :--- | :--- | :--- |
 | **`genesis.sh`** | **Master Menu** | 🔥 The Origin. Runs all other scripts. |
 | **`terminal.sh`** | **Terminal** | **Zsh**, **Powerlevel10k**, **Hack Fonts**, `bat`, `eza`, `fzf`. |
-| **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Sublime, Notepad++. |
+| **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Antigravity, Sublime, Notepad++. |
 | **`browsers.sh`** | **Browsers** | Chrome, Edge, Firefox, Brave, Vivaldi, Opera, Chromium, Librewolf, Tor. |
 | **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
-| **`db-tools.sh`** | **Databases & Tools** | Postgres 16, Mongo 8, Redis, Milvus + **GUIs** (pgAdmin, Compass, Attu, DBeaver). |
+| **`db-tools.sh`** | **Databases & Tools** | Postgres, Mongo, Redis, Milvus + **GUIs** |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
 | **`node.sh`** | **JS Stack** | NVM, Node, Yarn, PNPM (**Smart Config**). |
 | **`python.sh`** | **Python** | Python 3, Pip, Venv (**Smart Config**). |
