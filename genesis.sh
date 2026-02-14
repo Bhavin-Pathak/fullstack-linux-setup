@@ -26,15 +26,14 @@ show_menu() {
     echo -e "${YELLOW}5.${NC}  Python Stack (Pip, Venv) 🐍"
     echo -e "${YELLOW}6.${NC}  Java Stack (OpenJDK 17) ☕"
     echo -e "${YELLOW}7.${NC}  Flutter Stack (Dart, Android Studio) 📱"
-    echo -e "${YELLOW}8.${NC}  Docker (Desktop / Engine) 🐳"
+    echo -e "${YELLOW}8.${NC}  Docker & Cloud (AWS, K8s, Terraform) 🐳"
     echo -e "${YELLOW}9.${NC}  Databases (Mongo, Postgres, Redis) 🗄️"
     echo -e "${YELLOW}10.${NC} DB GUIs (DBeaver, Compass) 👁️"
     echo -e "${YELLOW}11.${NC} API Tools (Postman, Insomnia) 🚀"
     echo -e "${YELLOW}12.${NC} Communication (Slack, Discord, Zoom) 💬"
     echo -e "${YELLOW}13.${NC} Media (Spotify, VLC, OBS) 🎬"
     echo -e "${YELLOW}14.${NC} Utilities (Flameshot, GParted) 🛠️"
-    echo -e "${YELLOW}15.${NC} Cloud Tools (AWS, Terraform, K8s) ☁️"
-    echo -e "${YELLOW}16.${NC} System Cleaner 🧹"
+    echo -e "${YELLOW}15.${NC} System Cleaner 🧹"
     echo -e "---------------------------------"
     echo -e "${RED}0. Exit${NC}"
     echo -e "---------------------------------"
@@ -52,15 +51,14 @@ while true; do
         5) ./python.sh ;;
         6) ./java.sh ;;
         7) ./flutter.sh ;;
-        8) ./docker.sh ;;
+        8) ./cloud-docker.sh ;;
         9) ./db.sh ;;
         10) ./db-view.sh ;;
         11) ./api-test.sh ;;
         12) ./communication.sh ;;
         13) ./media.sh ;;
         14) ./utils.sh ;;
-        15) ./cloud.sh ;;
-        16) ./cleaner.sh ;;
+        15) ./cleaner.sh ;;
         0) echo -e "\n${GREEN}Happy Coding! 🚀${NC}"; exit 0 ;;
         *) echo -e "\n${RED}Invalid option. Please try again.${NC}"; sleep 1 ;;
     esac

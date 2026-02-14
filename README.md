@@ -40,8 +40,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`browsers.sh`** | **Browsers** | Chrome, Edge, Brave, Vivaldi, Firefox, Opera, Tor, Chromium. |
 | **`communication.sh`** | **Chat** | Slack, Discord, Zoom, Microsoft Teams. |
 | **`media.sh`** | **Media** | Spotify, VLC, OBS Studio. |
-| **`cloud.sh`** | **DevOps** | AWS CLI, Terraform, Kubectl, Ansible, Azure CLI. |
-| **`docker.sh`** | **Containers** | Smart Install: Docker Desktop (GUI) or Engine (CLI). |
+| **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
 | **`db.sh`** | **Databases** | Postgres 16, MongoDB 8, Redis, Milvus. (Dockerized). |
 | **`db-view.sh`** | **DB GUIs** | DBeaver, pgAdmin4, Compass, Redis Insight. |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
