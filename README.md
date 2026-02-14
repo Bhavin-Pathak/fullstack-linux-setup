@@ -42,8 +42,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`db-tools.sh`** | **Databases & GUIs** | Postgres, Mongo, Redis, Milvus + **GUIs** |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
 | **`node-py.sh`** | **Node & Python** | NVM, Node, Yarn, PNPM, Bun, Python 3, Pip, Venv (**Smart Config**). |
-| **`java.sh`** | **Java** | OpenJDK 17 (**Smart Config**). |
-| **`flutter.sh`** | **Mobile** | Flutter SDK, Dart, Android Studio. |
+| **`flutter.sh`** | **Mobile** | Java 17, Flutter SDK, Dart, Android Studio. |
 | **`essentials.sh`** | **Desktop Apps** | Slack, Discord, Zoom, Teams, WhatsApp, Telegram, Spotify, VLC, OBS, Audacity, Blender, Figma, Steam, Flameshot, GParted, Btop. |
 | **`cleaner.sh`** | **Maintenance** | 🧹 Deep Clean: Logs, Cache, Trash, Docker Prune. |
 

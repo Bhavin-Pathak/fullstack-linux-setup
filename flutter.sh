@@ -35,6 +35,48 @@ ask_install() {
 
 # --- Installers ---
 
+install_java() {
+    if is_installed java; then
+        echo -e "${GREEN}Java is already installed: $(java -version 2>&1 | head -n 1)${NC}"
+        # Still check path config
+        configure_java_path
+        return
+    fi
+
+    print_msg "Updating Package List"
+    sudo apt update
+
+    print_msg "Installing OpenJDK 17"
+    sudo apt install -y openjdk-17-jdk
+    echo -e "${GREEN}Java Installed.${NC}"
+
+    configure_java_path
+}
+
+configure_java_path() {
+    # Detect Shell
+    local shell_config=""
+    if [[ "$SHELL" == *"zsh"* ]]; then
+        shell_config="$HOME/.zshrc"
+    elif [[ "$SHELL" == *"bash"* ]]; then
+        shell_config="$HOME/.bashrc"
+    else
+        shell_config="$HOME/.bashrc"
+    fi
+
+    local java_path="/usr/lib/jvm/java-17-openjdk-amd64"
+
+    # Check and Append
+    if grep -q "JAVA_HOME.*$java_path" "$shell_config"; then
+        echo -e "${GREEN}JAVA_HOME already set in $shell_config${NC}"
+    else
+        echo "" >> "$shell_config"
+        echo "export JAVA_HOME=$java_path" >> "$shell_config"
+        echo 'export PATH=$JAVA_HOME/bin:$PATH' >> "$shell_config"
+        echo -e "${GREEN}Added JAVA_HOME to $shell_config${NC}"
+    fi
+}
+
 setup_snap() {
     if ! is_installed snap; then
         print_msg "Installing Snapd"
@@ -100,7 +142,8 @@ echo -e "---------------------------"
 
 setup_snap
 
-ask_install "Flutter SDK + Dart" && install_flutter
+ask_install "Java (OpenJDK 17)" && install_java
+ask_install "Flutter SDK" && install_flutter
 ask_install "Android Studio" && install_android_studio
 
 echo -e "\n${GREEN}Setup Complete! 📱${NC}"
