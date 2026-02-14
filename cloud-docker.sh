@@ -33,142 +33,132 @@ ask_install() {
     esac
 }
 
-# --- Docker Installers ---
+check_and_ask() {
+    local name="$1"
+    local check_cmd="$2"
+    local install_func="$3"
+    local check_type="${4:-command}"
 
-install_docker_engine() {
-    if is_installed docker; then
-        echo -e "${GREEN}Docker Engine is already installed.${NC}"
-        # Check permissions
-        if ! groups $USER | grep &>/dev/null "\bdocker\b"; then
-             print_msg "Adding user to 'docker' group (Run without sudo)"
-             sudo usermod -aG docker $USER
-             echo -e "${YELLOW}Log out and back in for this to take effect.${NC}"
-        fi
-        return
+    local already_installed=false
+
+    if [ "$check_type" == "dpkg" ]; then
+        if dpkg -l | grep -q "$check_cmd"; then already_installed=true; fi
+    elif [ "$check_type" == "snap" ]; then
+        if snap list 2>/dev/null | grep -q "$check_cmd"; then already_installed=true; fi
+    else 
+        if is_installed "$check_cmd"; then already_installed=true; fi
     fi
 
-    print_msg "Installing Docker Engine (CLI)"
-    
-    # Prereqs
-    sudo apt update
-    sudo apt install -y ca-certificates curl gnupg lsb-release
+    if [ "$already_installed" = true ]; then
+        echo -e "${GREEN}✔ $name is already installed. Skipped.${NC}"
+    else
+        if ask_install "$name"; then
+            $install_func
+        fi
+    fi
+}
 
-    # GPG Key
-    sudo mkdir -p /etc/apt/keyrings
+# --- Installers ---
+
+install_docker_desktop() {
+    print_msg "Installing Docker Desktop"
+    wget -O docker-desktop.deb "https://desktop.docker.com/linux/main/amd64/docker-desktop-4.27.0-amd64.deb"
+    sudo apt-get update
+    sudo apt-get install ./docker-desktop.deb -y
+    rm docker-desktop.deb
+    echo -e "${GREEN}Docker Desktop Installed.${NC}"
+}
+
+install_docker_engine() {
+    print_msg "Installing Docker Engine"
+    # Remove old versions
+    for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+    # Add repo
+    sudo apt-get update
+    sudo apt-get install -y ca-certificates curl gnupg
+    sudo install -m 0755 -d /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-    # Repository
     echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      "deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     
-    # Install
-    sudo apt update
-    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-    # Post-install steps
-    print_msg "Configuring user permissions"
+    # User Group
     sudo usermod -aG docker $USER
-    
-    echo -e "${GREEN}Docker Engine Installed.${NC}"
-    echo -e "${YELLOW}⚠️  Please log out/in to use 'docker' without sudo.${NC}"
+    echo -e "${GREEN}Docker Engine Installed. Please re-login for group changes to take effect.${NC}"
 }
 
-install_docker_desktop() {
-    # Docker Desktop check is tricky as it's a GUI app, usually located in /opt/docker-desktop
-    if [ -d "/opt/docker-desktop" ]; then
-        echo -e "${GREEN}Docker Desktop is already installed.${NC}"
-        return
-    fi
-    
-    print_msg "Installing Docker Desktop (GUI)"
-    
-    # 1. Install KVM/QEMU dependencies (Required for Desktop)
-    print_msg "Setting up KVM dependencies"
-    sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
-    sudo adduser $USER libvirt
-    sudo adduser $USER kvm
-
-    # 2. Download .deb (Link provided by user)
-    print_msg "Downloading Docker Desktop .deb..."
-    wget -O docker-desktop.deb "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64"
-    
-    # 3. Install
-    print_msg "Installing Package (This may take a moment)..."
-    sudo apt update
-    sudo apt install ./docker-desktop.deb -y
-    
-    rm docker-desktop.deb
-    echo -e "${GREEN}Docker Desktop Installed! Launch it from your applications menu.${NC}"
-}
-
-# --- Cloud Tools Installers ---
-
-install_aws() {
+install_aws_cli() {
     print_msg "Installing AWS CLI"
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
+    unzip -q awscliv2.zip
     sudo ./aws/install --update
     rm -rf aws awscliv2.zip
-    echo -e "${GREEN}AWS CLI Installed: $(aws --version)${NC}"
+    echo -e "${GREEN}AWS CLI Installed.${NC}"
 }
 
 install_terraform() {
     print_msg "Installing Terraform"
     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-    wget -O- https://apt.releases.hashicorp.com/gpg | \
-        gpg --dearmor | \
-        sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
-    gpg --no-default-keyring \
-        --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-        --fingerprint
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-        https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-        sudo tee /etc/apt/sources.list.d/hashicorp.list
+    wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
     sudo apt update
     sudo apt install -y terraform
-    echo -e "${GREEN}Terraform Installed: $(terraform -version)${NC}"
+    echo -e "${GREEN}Terraform Installed.${NC}"
 }
 
 install_kubectl() {
     print_msg "Installing Kubectl"
-    sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
     curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg --yes
     echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
     sudo apt-get update
     sudo apt-get install -y kubectl
-    echo -e "${GREEN}Kubectl Installed${NC}"
+    echo -e "${GREEN}Kubectl Installed.${NC}"
 }
 
 install_ansible() {
     print_msg "Installing Ansible"
     sudo add-apt-repository --yes --update ppa:ansible/ansible
     sudo apt install -y ansible
-    echo -e "${GREEN}Ansible Installed: $(ansible --version | head -n 1)${NC}"
+    echo -e "${GREEN}Ansible Installed.${NC}"
 }
 
-install_azure() {
+install_azure_cli() {
     print_msg "Installing Azure CLI"
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-    echo -e "${GREEN}Azure CLI Installed${NC}"
+    echo -e "${GREEN}Azure CLI Installed.${NC}"
 }
 
 # --- Main ---
 
 clear
-echo -e "${BLUE}${BOLD}Docker & Cloud DevOps Setup${NC}"
-echo -e "-----------------------------"
+echo -e "${BLUE}${BOLD}Cloud & Containers Setup${NC}"
+echo -e "---------------------------"
 
-ask_install "Docker Engine (Server/CLI)" && install_docker_engine
-ask_install "Docker Desktop (GUI App)" && install_docker_desktop
+# Docker Selection
+echo -e "${YELLOW}Choose your Docker flavor:${NC}"
+echo "1. Docker Desktop (GUI + Engine) [Recommended for Beginners]"
+echo "2. Docker Engine (CLI Only) [Lightweight]"
+echo "3. Skip Docker"
+read -p "> " dockchoice
 
-echo -e "\n${YELLOW}--- Cloud Tools ---${NC}\n"
+case $dockchoice in
+    1) check_and_ask "Docker Desktop" "docker-desktop" install_docker_desktop "dpkg" ;;
+    2) check_and_ask "Docker Engine" "docker" install_docker_engine ;;
+    *) echo "Skipping Docker." ;;
+esac
 
-ask_install "AWS CLI v2" && install_aws
-ask_install "Terraform" && install_terraform
-ask_install "Kubectl (Kubernetes CLI)" && install_kubectl
-ask_install "Ansible" && install_ansible
-ask_install "Azure CLI" && install_azure
+echo -e "\n${YELLOW}--- Cloud Tools ---${NC}"
+check_and_ask "AWS CLI v2" "aws" install_aws_cli
+check_and_ask "Terraform" "terraform" install_terraform
+check_and_ask "Kubectl" "kubectl" install_kubectl
+check_and_ask "Ansible" "ansible" install_ansible
+check_and_ask "Azure CLI" "az" install_azure_cli
 
-echo -e "\n${GREEN}Setup Complete! ☁️ 🐳${NC}\n"
+echo -e "\n${GREEN}Setup Complete! ☁️${NC}\n"
