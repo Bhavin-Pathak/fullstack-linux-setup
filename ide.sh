@@ -62,14 +62,7 @@ check_and_ask() {
 
 install_vscode() {
     print_msg "Installing VS Code"
-    sudo apt-get install -y wget gpg
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    rm packages.microsoft.gpg
-    sudo apt install -y apt-transport-https
-    sudo apt update
-    sudo apt install -y code
+    sudo snap install code --classic
     echo -e "${GREEN}VS Code Installed.${NC}"
 }
 
@@ -104,10 +97,7 @@ install_windsurf() {
 
 install_sublime() {
     print_msg "Installing Sublime Text"
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    sudo apt update
-    sudo apt install sublime-text -y
+    sudo snap install sublime-text --classic
     echo -e "${GREEN}Sublime Text Installed.${NC}"
 }
 
@@ -125,9 +115,24 @@ install_neovim() {
 }
 
 install_antigravity() {
-    echo -e "${BLUE}Installing Antigravity (Concept)...${NC}"
-    echo -e "Antigravity is YOU! 🧠 No install needed."
-    sleep 1
+    print_msg "Installing Antigravity IDE"
+
+    # Create keyrings directory if not exists
+    sudo mkdir -p /etc/apt/keyrings
+
+    # Add GPG Key
+    curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+      sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+    # Add Repository
+    echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+      sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+    # Install
+    sudo apt update
+    sudo apt install antigravity -y
+    
+    echo -e "${GREEN}Antigravity IDE Installed.${NC}"
 }
 
 # --- Main ---
@@ -136,10 +141,16 @@ clear
 echo -e "${BLUE}${BOLD}IDE & Editor Setup${NC}"
 echo -e "------------------------"
 
-check_and_ask "VS Code" "code" install_vscode
+# Ensure Snap is ready for VSCode/Sublime/Notepad++
+if ! is_installed snap; then 
+    echo -e "${YELLOW}Installing Snapd (Required for VSCode, Sublime, Notepad++)${NC}"
+    sudo apt update && sudo apt install snapd -y
+fi
+
+check_and_ask "VS Code" "code" install_vscode "snap"
 check_and_ask "Cursor IDE" "cursor" install_cursor 
 check_and_ask "Windsurf IDE" "windsurf" install_windsurf
-check_and_ask "Sublime Text" "subl" install_sublime
+check_and_ask "Sublime Text" "sublime-text" install_sublime "snap"
 check_and_ask "Notepad++" "notepad-plus-plus" install_notepadpp "snap"
 check_and_ask "NeoVim" "nvim" install_neovim
 check_and_ask "Antigravity IDE" "antigravity" install_antigravity
