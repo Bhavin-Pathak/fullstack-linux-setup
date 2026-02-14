@@ -75,59 +75,31 @@ install_vscode() {
 
 install_cursor() {
     print_msg "Installing Cursor AI Editor"
-    # Using the AppImage approach as it's the most reliable "install" for Cursor on Linux currently
-    # Or checking if user provided a .deb link previously.
-    # The previous script had a .deb link.
-    wget -O cursor.deb "https://downloader.cursor.sh/linux/appImage/x64" # Wait, URL usually downloads an AppImage but user wanted .deb
-    # Let's check previous file content logic?
-    # Actually, Cursor doesn't have an official .deb repo. It's usually AppImage. 
-    # But if the user provided a link, I should use it. 
-    # I'll stick to the safe AppImage install for now unless I find the specific .deb link from history.
-    # History shows: "Update Cursor to use .deb package (User provided link)"
-    # I should find that link.
-    # Found in previous verify step or implementation? 
-    # I'll assume AppImage for safety OR simple download.
-    # Actually, let's look at the file content I just read.
-    # Previous file had: wget -O cursor.deb "https://downloader.cursor.sh/linux/appImage/x64" -> wait, that downloads appimage named as .deb? that's risky.
-    # Correct link is usually just the AppImage.
-    # I will install it as an AppImage in /opt/
     
-    print_msg "Downloading Cursor AppImage..."
-    sudo mkdir -p /opt/cursor
-    sudo wget -O /opt/cursor/cursor.AppImage "https://downloader.cursor.sh/linux/appImage/x64"
-    sudo chmod +x /opt/cursor/cursor.AppImage
+    # Downloading specific .deb version (v2.4.37)
+    wget -O cursor.deb "https://downloads.cursor.com/production/7b9c34466f5c119e93c3e654bb80fe9306b6cc79/linux/x64/deb/amd64/deb/cursor_2.4.37_amd64.deb"
     
-    # Create Desktop Entry
-    echo "[Desktop Entry]
-Name=Cursor
-Exec=/opt/cursor/cursor.AppImage --no-sandbox %F
-Type=Application
-Icon=text-editor
-Categories=Development;" | sudo tee /usr/share/applications/cursor.desktop
-
-    echo -e "${GREEN}Cursor Installed (AppImage in /opt/cursor).${NC}"
+    sudo apt install ./cursor.deb -y
+    rm cursor.deb
+    echo -e "${GREEN}Cursor Installed.${NC}"
 }
 
 install_windsurf() {
     print_msg "Installing Windsurf IDE"
-    # Assuming codeium windsurf
-    curl -fsSL "https://windsurf.codeium.com/api/download/linux_x64" -o windsurf.tar.gz
-    mkdir -p windsurf
-    tar -xzf windsurf.tar.gz -C windsurf
-    # Move to opt and link
-    sudo mv windsurf /opt/windsurf
-    sudo ln -sf /opt/windsurf/Windsurf /usr/local/bin/windsurf
-    rm windsurf.tar.gz
+
+    # Official Repo Setup
+    sudo apt-get install -y wget gpg apt-transport-https
     
-    # Desktop entry
-    echo "[Desktop Entry]
-Name=Windsurf
-Exec=/opt/windsurf/Windsurf %F
-Type=Application
-Icon=text-editor
-Categories=Development;" | sudo tee /usr/share/applications/windsurf.desktop
+    wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | gpg --dearmor > windsurf-stable.gpg
+    sudo install -D -o root -g root -m 644 windsurf-stable.gpg /etc/apt/keyrings/windsurf-stable.gpg
     
-    echo -e "${GREEN}Windsurf Installed.${NC}"
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" | sudo tee /etc/apt/sources.list.d/windsurf.list > /dev/null
+    
+    rm -f windsurf-stable.gpg
+    
+    sudo apt update
+    sudo apt install windsurf -y
+    echo -e "${GREEN}Windsurf IDE OK.${NC}"
 }
 
 install_sublime() {
@@ -165,14 +137,7 @@ echo -e "${BLUE}${BOLD}IDE & Editor Setup${NC}"
 echo -e "------------------------"
 
 check_and_ask "VS Code" "code" install_vscode
-check_and_ask "Cursor IDE" "cursor" install_cursor # Checks for /usr/share/applications/cursor.desktop mostly or command mapping? 
-# "cursor" might not be in path if just appimage. Better check:
-# For custom installs, check_cmd might fail. I'll stick to 'cursor' if I made a symlink, or check logic.
-# I'll add a symlink for cursor in the install function to make check passed next time.
-# Start of Refinement:
-# I Will add `sudo ln -s /opt/cursor/cursor.AppImage /usr/local/bin/cursor` to install_cursor
-# Same for windsurf.
-
+check_and_ask "Cursor IDE" "cursor" install_cursor 
 check_and_ask "Windsurf IDE" "windsurf" install_windsurf
 check_and_ask "Sublime Text" "subl" install_sublime
 check_and_ask "Notepad++" "notepad-plus-plus" install_notepadpp "snap"
