@@ -51,7 +51,7 @@ while true; do
         6) ./java.sh ;;
         7) ./flutter.sh ;;
         8) ./cloud-docker.sh ;;
-        9) ./db.sh ;;
+        9) ./db-tools.sh ;;
         10) ./api-test.sh ;;
         11) ./communication.sh ;;
         12) ./media.sh ;;
