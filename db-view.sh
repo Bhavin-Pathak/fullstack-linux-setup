@@ -48,7 +48,7 @@ install_dbeaver() {
         return
     fi
     print_msg "Installing DBeaver CE"
-    sudo snap install dbeaver-ce
+    sudo snap install dbeaver-ce --classic
     echo -e "${GREEN}DBeaver Installed.${NC}"
 }
 
@@ -101,6 +101,21 @@ install_racompass() {
     echo -e "${GREEN}Racompass Installed.${NC}"
 }
 
+install_attu() {
+    if dpkg -l | grep -q attu; then
+        echo -e "${GREEN}Attu is already installed.${NC}"
+        return
+    fi
+    print_msg "Installing Attu (Milvus GUI)"
+    
+    # Using stable release v2.6.4
+    wget -O attu.deb "https://github.com/zilliztech/attu/releases/download/v2.6.4/attu_2.6.4_amd64.deb"
+    
+    sudo apt install ./attu.deb -y
+    rm attu.deb
+    echo -e "${GREEN}Attu Installed.${NC}"
+}
+
 # --- Main ---
 
 clear
@@ -114,5 +129,6 @@ ask_install "pgAdmin4 (PostgreSQL)" && install_pgadmin
 ask_install "MongoDB Compass" && install_compass
 ask_install "Beekeeper Studio" && install_beekeeper
 ask_install "Racompass (Redis)" && install_racompass
+ask_install "Attu (Milvus GUI)" && install_attu
 
 echo -e "\n${GREEN}DB Tools Ready! 🗄️${NC}\n"
