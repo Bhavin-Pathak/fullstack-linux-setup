@@ -38,8 +38,6 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`terminal.sh`** | **Terminal** | **Zsh**, **Powerlevel10k**, **Hack Fonts**, `bat`, `eza`, `fzf`. |
 | **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Sublime, Notepad++. |
 | **`browsers.sh`** | **Browsers** | Chrome, Edge, Firefox, Brave, Vivaldi, Opera, Chromium, Librewolf, Tor. |
-| **`communication.sh`** | **Chat** | Slack, Discord, Zoom, Microsoft Teams. |
-| **`media.sh`** | **Media** | Spotify, VLC, OBS Studio. |
 | **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
 | **`db-tools.sh`** | **Databases & Tools** | Postgres 16, Mongo 8, Redis, Milvus + **GUIs** (pgAdmin, Compass, Attu, DBeaver). |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
@@ -47,7 +45,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`python.sh`** | **Python** | Python 3, Pip, Venv (**Smart Config**). |
 | **`java.sh`** | **Java** | OpenJDK 17 (**Smart Config**). |
 | **`flutter.sh`** | **Mobile** | Flutter SDK, Dart, Android Studio. |
-| **`utils.sh`** | **Utils** | Flameshot (Screenshots), GParted. |
+| **`essentials.sh`** | **Desktop Apps** | Slack, Discord, Zoom, Teams, WhatsApp, Telegram, Spotify, VLC, OBS, Audacity, Blender, Figma, Steam, Flameshot, GParted, Btop. |
 | **`cleaner.sh`** | **Maintenance** | 🧹 Deep Clean: Logs, Cache, Trash, Docker Prune. |
 
 ---

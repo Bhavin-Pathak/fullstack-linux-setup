@@ -29,10 +29,8 @@ show_menu() {
     echo -e "${YELLOW}8.${NC}  Docker & Cloud (AWS, K8s, Terraform) 🐳"
     echo -e "${YELLOW}9.${NC}  Databases & GUIs (Mongo, Postgres, Milvus) 🗄️"
     echo -e "${YELLOW}10.${NC} API Tools (Postman, Insomnia) 🚀"
-    echo -e "${YELLOW}11.${NC} Communication (Slack, Discord, Zoom) 💬"
-    echo -e "${YELLOW}12.${NC} Media (Spotify, VLC, OBS) 🎬"
-    echo -e "${YELLOW}13.${NC} Utilities (Flameshot, GParted) 🛠️"
-    echo -e "${YELLOW}14.${NC} System Cleaner 🧹"
+    echo -e "${YELLOW}11.${NC} Essential Apps (Slack, Spotify, Utils) 🛠️"
+    echo -e "${YELLOW}12.${NC} System Cleaner 🧹"
     echo -e "---------------------------------"
     echo -e "${RED}0. Exit${NC}"
     echo -e "---------------------------------"
@@ -53,10 +51,8 @@ while true; do
         8) ./cloud-docker.sh ;;
         9) ./db-tools.sh ;;
         10) ./api-test.sh ;;
-        11) ./communication.sh ;;
-        12) ./media.sh ;;
-        13) ./utils.sh ;;
-        14) ./cleaner.sh ;;
+        11) ./essentials.sh ;;
+        12) ./cleaner.sh ;;
         0) echo -e "\n${GREEN}Happy Coding! 🚀${NC}"; exit 0 ;;
         *) echo -e "\n${RED}Invalid option. Please try again.${NC}"; sleep 1 ;;
     esac
