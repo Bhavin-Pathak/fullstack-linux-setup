@@ -37,7 +37,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`genesis.sh`** | **Master Menu** | 🔥 The Origin. Runs all other scripts. |
 | **`terminal.sh`** | **Terminal** | **Zsh**, **Powerlevel10k**, **Hack Fonts**, `bat`, `eza`, `fzf`. |
 | **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Sublime, Notepad++. |
-| **`browsers.sh`** | **Browsers** | Chrome, Edge, Brave, Vivaldi, Firefox, Opera, Tor, Chromium. |
+| **`browsers.sh`** | **Browsers** | Chrome & Edge (.deb), Firefox, Brave, Vivaldi, Opera, Chromium (**Snap**), Librewolf (**Extrepo**), Tor (**Tarball**). |
 | **`communication.sh`** | **Chat** | Slack, Discord, Zoom, Microsoft Teams. |
 | **`media.sh`** | **Media** | Spotify, VLC, OBS Studio. |
 | **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
