@@ -27,7 +27,7 @@ show_menu() {
     echo -e "${YELLOW}5.${NC}  Mobile Development (Java 17, Flutter SDK, Android Studio) 📱"
     echo -e "${YELLOW}6.${NC}  DevOps & Cloud (Docker, AWS, Terraform, K8s, Ansible) 🐳"
     echo -e "${YELLOW}7.${NC}  Database Suite (Mongo, Postgres, Redis, Milvus, DBeaver) 🗄️"
-    echo -e "${YELLOW}8.${NC}  API Testing Tools (Postman, Insomnia) �"
+    echo -e "${YELLOW}8.${NC}  API Testing Tools (Postman, Insomnia) 🔌"
     echo -e "${YELLOW}9.${NC}  Essential Apps (Slack, Discord, Spotify, VLC, OBS, Steam) 🛠️"
     echo -e "${YELLOW}10.${NC} System Maintenance (Logs, Cache, Trash, Docker Prune) 🧹"
     echo -e "--------------------------------------------------------"
