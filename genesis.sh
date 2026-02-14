@@ -43,7 +43,7 @@ while true; do
         2) ./ide.sh ;;
         3) ./browsers.sh ;;
         4) ./node-py.sh ;;
-        5) ./flutter.sh ;;
+        5) ./java-flutter.sh ;;
         6) ./cloud-docker.sh ;;
         7) ./db-tools.sh ;;
         8) ./api-test.sh ;;
