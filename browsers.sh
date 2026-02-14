@@ -155,15 +155,4 @@ else
     echo -e "${RED}Skipped Chromium.${NC}"
 fi
 
-    install_browser_snap "Vivaldi" "vivaldi"
-else
-    echo -e "${RED}Skipped Vivaldi.${NC}"
-fi
-
-if confirm_install "Tor Browser"; then
-    install_browser_snap "Tor Browser" "torbrowser"
-else
-    echo -e "${RED}Skipped Tor Browser.${NC}"
-fi
-
 echo -e "\n${GREEN}${BOLD}All Done! Happy Surfing 🌐${NC}\n"
