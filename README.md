@@ -39,10 +39,9 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`ide.sh`** | **IDEs** | VS Code, Cursor, Windsurf, Antigravity, Sublime, Notepad++. |
 | **`browsers.sh`** | **Browsers** | Chrome, Edge, Firefox, Brave, Vivaldi, Opera, Chromium, Librewolf, Tor. |
 | **`cloud-docker.sh`** | **Docker & Cloud** | AWS, Terraform, K8s, Ansible, Azure, Docker (Desktop/Engine). |
-| **`db-tools.sh`** | **Databases & Tools** | Postgres, Mongo, Redis, Milvus + **GUIs** |
+| **`db-tools.sh`** | **Databases & GUIs** | Postgres, Mongo, Redis, Milvus + **GUIs** |
 | **`api-test.sh`** | **API Tools** | Postman, Insomnia. |
-| **`node.sh`** | **JS Stack** | NVM, Node, Yarn, PNPM (**Smart Config**). |
-| **`python.sh`** | **Python** | Python 3, Pip, Venv (**Smart Config**). |
+| **`node-py.sh`** | **Node & Python** | NVM, Node, Yarn, PNPM, Bun, Python 3, Pip, Venv (**Smart Config**). |
 | **`java.sh`** | **Java** | OpenJDK 17 (**Smart Config**). |
 | **`flutter.sh`** | **Mobile** | Flutter SDK, Dart, Android Studio. |
 | **`essentials.sh`** | **Desktop Apps** | Slack, Discord, Zoom, Teams, WhatsApp, Telegram, Spotify, VLC, OBS, Audacity, Blender, Figma, Steam, Flameshot, GParted, Btop. |

@@ -22,15 +22,14 @@ show_menu() {
     echo -e "${YELLOW}1.${NC}  Terminal (Zsh, Hack Fonts, P10k) 🎨"
     echo -e "${YELLOW}2.${NC}  IDEs (VS Code, Cursor, Windsurf) 💻"
     echo -e "${YELLOW}3.${NC}  Browsers (Chrome, Brave, Firefox) 🌐"
-    echo -e "${YELLOW}4.${NC}  Node.js Stack (NVM, Yarn, Bun) 🟩"
-    echo -e "${YELLOW}5.${NC}  Python Stack (Pip, Venv) 🐍"
-    echo -e "${YELLOW}6.${NC}  Java Stack (OpenJDK 17) ☕"
-    echo -e "${YELLOW}7.${NC}  Flutter Stack (Dart, Android Studio) 📱"
-    echo -e "${YELLOW}8.${NC}  Docker & Cloud (AWS, K8s, Terraform) 🐳"
-    echo -e "${YELLOW}9.${NC}  Databases & GUIs (Mongo, Postgres, Milvus) 🗄️"
-    echo -e "${YELLOW}10.${NC} API Tools (Postman, Insomnia) 🚀"
-    echo -e "${YELLOW}11.${NC} Essential Apps (Slack, Spotify, Utils) 🛠️"
-    echo -e "${YELLOW}12.${NC} System Cleaner 🧹"
+    echo -e "${YELLOW}4.${NC}  Node.js & Python Stack (NVM, Pip, Bun) 🚀"
+    echo -e "${YELLOW}5.${NC}  Java Stack (OpenJDK 17) ☕"
+    echo -e "${YELLOW}6.${NC}  Flutter Stack (Dart, Android Studio) 📱"
+    echo -e "${YELLOW}7.${NC}  Docker & Cloud (AWS, K8s, Terraform) 🐳"
+    echo -e "${YELLOW}8.${NC}  Databases & GUIs (Mongo, Postgres, Milvus) 🗄️"
+    echo -e "${YELLOW}9.${NC}  API Tools (Postman, Insomnia) 🚀"
+    echo -e "${YELLOW}10.${NC} Essential Apps (Slack, Spotify, Utils) 🛠️"
+    echo -e "${YELLOW}11.${NC} System Cleaner 🧹"
     echo -e "---------------------------------"
     echo -e "${RED}0. Exit${NC}"
     echo -e "---------------------------------"
@@ -44,15 +43,14 @@ while true; do
         1) ./terminal.sh ;;
         2) ./ide.sh ;;
         3) ./browsers.sh ;;
-        4) ./node.sh ;;
-        5) ./python.sh ;;
-        6) ./java.sh ;;
-        7) ./flutter.sh ;;
-        8) ./cloud-docker.sh ;;
-        9) ./db-tools.sh ;;
-        10) ./api-test.sh ;;
-        11) ./essentials.sh ;;
-        12) ./cleaner.sh ;;
+        4) ./node-py.sh ;;
+        5) ./java.sh ;;
+        6) ./flutter.sh ;;
+        7) ./cloud-docker.sh ;;
+        8) ./db-tools.sh ;;
+        9) ./api-test.sh ;;
+        10) ./essentials.sh ;;
+        11) ./cleaner.sh ;;
         0) echo -e "\n${GREEN}Happy Coding! 🚀${NC}"; exit 0 ;;
         *) echo -e "\n${RED}Invalid option. Please try again.${NC}"; sleep 1 ;;
     esac
