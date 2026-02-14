@@ -27,7 +27,10 @@ ask_install() {
     read -p "> " choice
     case "$choice" in 
         [yY]*) return 0 ;;
-        *) return 1 ;;
+        *) 
+            echo -e "${RED}Skipped $name.${NC}"
+            return 1 
+            ;;
     esac
 }
 
