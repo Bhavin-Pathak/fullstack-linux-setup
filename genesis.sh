@@ -30,6 +30,7 @@ show_menu() {
     echo -e "${YELLOW}8.${NC}  API Testing Tools (Postman, Insomnia) 🔌"
     echo -e "${YELLOW}9.${NC}  Essential Apps (Slack, Discord, Spotify, VLC, OBS, Steam) 🛠️"
     echo -e "${YELLOW}10.${NC} System Maintenance (Logs, Cache, Trash, Docker Prune) 🧹"
+    echo -e "${YELLOW}11.${NC} Cloudflare WARP (VPN & DNS) 🛡️"
     echo -e "--------------------------------------------------------"
     echo -e "${RED}0. Exit${NC}"
     echo -e "--------------------------------------------------------"
@@ -50,6 +51,7 @@ while true; do
         8) ./api-test.sh ;;
         9) ./essentials.sh ;;
         10) ./cleaner.sh ;;
+        11) ./cloudflare-warp.sh ;;
         0) echo -e "\n${GREEN}Happy Coding! 🚀${NC}"; exit 0 ;;
         *) echo -e "\n${RED}Invalid option. Please try again.${NC}"; sleep 1 ;;
     esac

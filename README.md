@@ -42,6 +42,7 @@ Every script is standalone, but `genesis.sh` brings them together.
 | **`api-test.sh`** | **API Tools**. Postman, Insomnia. |
 | **`essentials.sh`** | **Apps**. Slack, Discord, Spotify, VLC, OBS, Steam, Tools. |
 | **`cleaner.sh`** | **Maintenance**. 🧹 Deep Clean: Logs, Cache, Trash, Docker Prune. |
+| **`cloudflare-warp.sh`** | **VPN**. 🛡️ Cloudflare WARP, DoH, VPN, Privacy. |
 
 ---
 
